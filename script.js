@@ -135,6 +135,32 @@ function createAndAppendTodo(todo) {
     deleteIconContainer.appendChild(deleteIcon);
 }
 
-for (let todo of todoList) {
+
+
+  for (let todo of todoList) {
     createAndAppendTodo(todo);
-}
+  }
+
+  let searchInput = document.getElementById("search");
+
+  searchInput.addEventListener("input", function() {
+      let searchText = searchInput.value.toLowerCase();
+      let filteredList = todoList.filter(function(todo) {
+          return todo.text.toLowerCase().includes(searchText);
+      });
+  
+      // Clear the existing tasks
+      clearTodoItems();
+  
+      // Render the filtered tasks
+      for (let todo of filteredList) {
+          createAndAppendTodo(todo);
+      }
+  });
+  
+  function clearTodoItems() {
+      while (todoItemsContainer.firstChild) {
+          todoItemsContainer.removeChild(todoItemsContainer.firstChild);
+      }
+  }
+  
